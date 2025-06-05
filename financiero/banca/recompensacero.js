@@ -3,6 +3,15 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
   
+  const color1Raw = req.query.color1 || "0";
+  const color1 = color1Raw.replace(/\D/g, "") || "0";
+
+  const color2Raw = req.query.color2 || "0";
+  const color2 = color2Raw.replace(/\D/g, "") || "0";  
+
+  const color3Raw = req.query.color3 || "0";
+  const color3 = color3Raw.replace(/\D/g, "") || "0";  
+  
   res.setHeader("Content-Type", "image/svg+xml");
   res.send(`
 <svg xmlns="http://www.w3.org/2000/svg" width="375" height="79" fill="none">
