@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/estadisticas", (req, res) => {
+router.get("/", (req, res) => {
   const aceptadosRaw = req.query.aceptados || "0";
   const aceptados = aceptadosRaw.replace(/\D/g, "") || "0";
 
