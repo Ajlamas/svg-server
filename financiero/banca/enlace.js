@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/enlace", (req, res) => {
+router.get("/", (req, res) => {
   res.setHeader("Content-Type", "image/svg+xml");
   res.send(`
     <svg xmlns="http://www.w3.org/2000/svg" width="375" height="40" fill="none">
