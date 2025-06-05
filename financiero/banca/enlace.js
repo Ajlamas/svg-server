@@ -5,8 +5,8 @@ router.get("/", (req, res) => {
   const clicsRaw = req.query.clics || "0";
   const clics = clicsRaw.replace(/\D/g, "") || "0";
 
-  const clicsunicosRaw = req.query.clics_unicos || "0";
-  const clicsunicos = clicsunicosRaw.replace(/\D/g, "") || "0";  
+  const clics_unicosRaw = req.query.clics_unicos || "0";
+  const clics_unicos = clics_unicosRaw.replace(/\D/g, "") || "0";  
   
   res.setHeader("Content-Type", "image/svg+xml");
   res.send(`
