@@ -5,6 +5,15 @@ router.get("/estadisticas", (req, res) => {
   const aceptadosRaw = req.query.aceptados || "0";
   const aceptados = aceptadosRaw.replace(/\D/g, "") || "0";
 
+  const rechazadosRaw = req.query.rechazados || "0";
+  const rechazados = rechazadosRaw.replace(/\D/g, "") || "0";
+
+  const agendadosRaw = req.query.agendados || "0";
+  const agendados = agendadosRaw.replace(/\D/g, "") || "0";
+
+  const pendientesRaw = req.query.pendientes || "0";
+  const pendientes = pendientesRaw.replace(/\D/g, "") || "0";
+
   res.setHeader("Content-Type", "image/svg+xml");
   res.send(`
     <svg xmlns="http://www.w3.org/2000/svg" width="375" height="298" fill="none">
