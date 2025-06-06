@@ -12,8 +12,8 @@ router.get("/", (req, res) => {
   res.setHeader("Content-Type", "image/svg+xml");
   res.send(`
     <svg width="355" height="141" viewBox="0 0 355 141" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="355" height="141" rx="10" fill="#314150"/>
-      <path d="M267 108c0-5.523 4.477-10 10-10h29c5.523 0 10 4.477 10 10v33h-49z" fill="#071A2D"/>
+      <rect width="355" height="141" rx="10" fill="#071A2D"/>
+      <path d="M267 108c0-5.523 4.477-10 10-10h29c5.523 0 10 4.477 10 10v33h-49z" fill="#314150"/>
       <path d="M293 86c0-5.523 4.477-10 10-10h30c5.523 0 10 4.477 10 10v55h-50z" fill="#F4C95D"/>
       <text x="12%" y="23" font-size="14" fill="#FFF" font-weight="350" text-anchor="middle">Agendados</text>
       <text x="12%" y="58" font-size="32" fill="#FFF" font-weight="900" text-anchor="middle">${agendados}</text>
