@@ -2,12 +2,12 @@ const express = require("express");
 const router = express.Router();
 
 const citas = require("./citas");
-const boton-calendario = require("./boton-calendario");
+const botoncalendario = require("./botoncalendario");
 const cabecera = require("./cabecera");
 
 router.use("/cabecera", cabecera);
 router.use("/citas", citas);
-router.use("/boton-calendario", boton-calendario);
+router.use("/botoncalendario", botoncalendario);
 
 module.exports = router;
 
