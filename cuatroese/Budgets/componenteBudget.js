@@ -40,5 +40,4 @@ router.get("/", (req, res) => {
   `);
 });
 
-// ESTA ES LA LÍNEA MÁS IMPORTANTE QUE PROBABLEMENTE FALTABA
 module.exports = router;
