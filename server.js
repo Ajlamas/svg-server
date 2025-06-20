@@ -1,4 +1,4 @@
-// server.js (NUEVA VERSIÓN AUTOMÁTICA)
+// server.js (VERSIÓN DE DEPURACIÓN)
 
 const express = require("express");
 const fs = require("fs");
@@ -8,19 +8,16 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const svgBaseUrl = "/svg";
-// Directorio donde guardas todas las carpetas de clientes (ej: 'financiero')
-const clientsDirectory = __dirname; 
+const clientsDirectory = __dirname;
 
 console.log("Iniciando configuración de rutas...");
 
-// Leemos las carpetas de los clientes (ej: 'financiero', 'seguros', etc.)
 fs.readdirSync(clientsDirectory, { withFileTypes: true })
-  .filter(dirent => dirent.isDirectory() && !['.git', 'node_modules', 'utils'].includes(dirent.name)) // Ignoramos carpetas que no son de clientes
+  .filter(dirent => dirent.isDirectory() && !['.git', 'node_modules', 'utils'].includes(dirent.name))
   .forEach(clientDir => {
     const clientName = clientDir.name;
     const clientPath = path.join(clientsDirectory, clientName);
 
-    // Dentro de cada cliente, leemos las carpetas de secciones (ej: 'banca', 'citas')
     fs.readdirSync(clientPath, { withFileTypes: true })
       .filter(dirent => dirent.isDirectory())
       .forEach(sectionDir => {
@@ -28,30 +25,35 @@ fs.readdirSync(clientsDirectory, { withFileTypes: true })
         const sectionPath = path.join(clientPath, sectionName);
         const indexPath = path.join(sectionPath, "index.js");
 
-        // Comprobamos si existe un 'index.js' que actúe como router
         if (fs.existsSync(indexPath)) {
+          // --- INICIO DE LÍNEAS DE DEPURACIÓN ---
+          console.log(`---> Intentando cargar router desde: ${indexPath}`);
           const router = require(indexPath);
+          console.log(`     El tipo de módulo cargado es: ${typeof router}`);
+
+          if (typeof router !== 'function') {
+            console.error(`!!!!!! ERROR FATAL: El archivo en ${indexPath} no exportó una función. Revisa que el archivo y todas sus dependencias tengan 'module.exports = router;' al final.`);
+            // Forzamos la detención para que el error sea obvio
+            process.exit(1); 
+          }
+          // --- FIN DE LÍNEAS DE DEPURACIÓN ---
+
           const urlPath = `${svgBaseUrl}/${clientName}/${sectionName}`;
-          
           app.use(urlPath, router);
           console.log(`✅ Ruta registrada: ${urlPath}`);
         }
       });
   });
 
-// Middleware para manejar errores 404 (rutas no encontradas)
 app.use((req, res, next) => {
     res.status(404).send("Error 404: La URL del SVG no existe.");
 });
 
-// Middleware para manejar otros errores del servidor
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Error 500: Algo salió mal en el servidor.');
 });
 
-
 app.listen(PORT, () => {
   console.log(`\nServidor escuchando en puerto ${PORT}`);
-  console.log("Puedes empezar a usar las URLs generadas.");
 });
